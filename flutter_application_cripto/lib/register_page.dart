@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> registerUser() async {
     setState(() => isLoading = true);
 
-    final url = Uri.parse("http://localhost/projectcripto/register.php"); // ganti IP jika perlu
+    final url = Uri.parse("http://localhost/projectcripto/register.php");
     final hashed = hashPassword(passwordController.text);
 
     try {
@@ -54,20 +54,73 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Register")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(controller: emailController, decoration: const InputDecoration(labelText: "Email")),
-            TextField(controller: passwordController, obscureText: true, decoration: const InputDecoration(labelText: "Password")),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: isLoading ? null : registerUser,
-              child: isLoading ? const CircularProgressIndicator(color: Colors.white) : const Text("Daftar"),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text("Buat Akun"),
+        centerTitle: true,
+        backgroundColor: Colors.teal,
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    "Registrasi",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      prefixIcon: const Icon(Icons.email),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      prefixIcon: const Icon(Icons.lock),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: isLoading ? null : registerUser,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: isLoading
+                          ? Image.asset("asets/loading.gif", height: 30)
+                          : const Text("Daftar", style: TextStyle(fontSize: 16)),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  if (message.isNotEmpty)
+                    Text(
+                      message,
+                      style: const TextStyle(color: Colors.red, fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                ],
+              ),
             ),
-            if (message.isNotEmpty) Text(message, style: const TextStyle(color: Colors.red)),
-          ],
+          ),
         ),
       ),
     );
