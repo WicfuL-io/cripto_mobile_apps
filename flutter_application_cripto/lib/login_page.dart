@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> loginUser() async {
     setState(() => isLoading = true);
 
-    final url = Uri.parse("http://localhost/projectcripto/login.php"); //sesuaikan dengan localhost db
+    final url = Uri.parse("http://localhost/cripto_db_backend/login.php"); //sesuaikan dengan localhost db
     final hashed = hashPassword(passwordController.text);
 
     try {
