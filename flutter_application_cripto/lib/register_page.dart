@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> registerUser() async {
     setState(() => isLoading = true);
 
-    final url = Uri.parse("http://localhost/projectcripto/register.php"); //sesuaikan dengan localhost db
+    final url = Uri.parse("http://localhost/cripto_db_backend/register.php"); //sesuaikan dengan localhost db
     final hashed = hashPassword(passwordController.text);
 
     try {
